@@ -1,7 +1,12 @@
 <?php 
 
     $fullName = "andro eugenio";
+    $updatedFullName = str_replace('n', 'u', $fullName);
+    echo $updatedFullName;
+    $radius = 25;
+    $pi = pi();
 
+    echo "<br/>" . $pi * $radius ** 2;
 ?>
 
 <!DOCTYPE html>
