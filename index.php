@@ -1,12 +1,29 @@
 <?php 
+    // indexed arrays
+    $people = ['shaun', 'crystal', 'yoshi'];
+    $people2 = ['mario', 'luigi', 'hetti'];
+    
+    array_push($people, 50);
+    // echo count($people);
+    $allPeople = [...$people, ...$people2];
 
-    $fullName = "andro eugenio";
-    $updatedFullName = str_replace('n', 'u', $fullName);
-    echo $updatedFullName;
-    $radius = 25;
-    $pi = pi();
+    print_r($allPeople);
 
-    echo "<br/>" . $pi * $radius ** 2;
+    //associative arrays
+    echo "<br>";
+    $robots = [ 'hello1' => 'andro',  'hello2' => 'jean',  'hello3' => 'john doe'];
+    print_r($robots);
+
+    // for($i = 0; $i < count($allPeople); $i++) {
+    //     echo " <br> $allPeople[$i]";
+    // }
+
+    include ('./data.php');
+
+    echo "<br>";
+    
+    print_r($data);
+   
 ?>
 
 <!DOCTYPE html>
@@ -19,11 +36,9 @@
 </head>
 
 <body>
-    <h1>
-        <?php
-        echo 'hello ninjas'
-        ?>
-    </h1>
+    <?php  foreach($allPeople as $people) {?>
+         <h1><?php echo "<br>" . $people ; ?></h1>
+        <?php } ?>
 
 </body>
 
