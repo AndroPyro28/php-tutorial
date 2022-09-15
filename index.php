@@ -1,45 +1,61 @@
-<?php 
-    // indexed arrays
-    $people = ['shaun', 'crystal', 'yoshi'];
-    $people2 = ['mario', 'luigi', 'hetti'];
-    
-    array_push($people, 50);
-    // echo count($people);
-    $allPeople = [...$people, ...$people2];
+<?php
 
-    print_r($allPeople);
+include('./dataconnection.php');
+if (!$conn) {
+    echo "connection error" . mysqli_connect_error();
+}
 
-    //associative arrays
-    echo "<br>";
-    $robots = [ 'hello1' => 'andro',  'hello2' => 'jean',  'hello3' => 'john doe'];
-    print_r($robots);
+$selectQuery = 'SELECT id, title, ingredients FROM pizzas ORDER BY createdAt;';
 
-    // for($i = 0; $i < count($allPeople); $i++) {
-    //     echo " <br> $allPeople[$i]";
-    // }
+$result = mysqli_query($conn, $selectQuery);
 
-    include ('./data.php');
+$pizzas = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-    echo "<br>";
-    
-    print_r($data);
-   
+mysqli_free_result($result);
+mysqli_close($conn);
+//    print_r($pizzas);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My first php file</title>
-</head>
+<?php
+include('./template/Header.php');
+?>
 
-<body>
-    <?php  foreach($allPeople as $people) {?>
-         <h1><?php echo "<br>" . $people ; ?></h1>
+<h4 class="center grey-text">Pizzas</h4>
+<div class="container">
+    <div class="row">
+
+        <?php foreach ($pizzas as $pizza) {  ?>
+            <div class="col s6 md3">
+                <div class="card z-depth-0">
+
+                    <div class="card-content">
+                        <h5 class="center"><?php echo htmlspecialchars($pizza['title']); ?></h5>
+                        <div class="">
+                            <ul>
+                                <?php
+                                $ingredientsList = explode(',', htmlspecialchars($pizza['ingredients']));
+                                foreach ($ingredientsList as $ingredient) {
+                                    echo "<li class='grey-text'>- $ingredient </li>";
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-action right-align">
+                        <a href="#" class="brand-text">
+                            more info
+                        </a>
+                    </div>
+
+                </div>
+            </div>
         <?php } ?>
-
-</body>
+    </div>
+</div>
+<?php
+include('./template/Footer.php');
+?>
 
 </html>
